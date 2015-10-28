@@ -28,10 +28,10 @@ Compile and upload the JoystickLeonardo.ino file onto the Arduino Leonardo using
 
 The following steps are for Windows. If you have a different operating system, these steps may differ.
 
-Go to the Windows Control Panel and select “Hardware and Sound”.
+1. Go to the Windows Control Panel and select “Hardware and Sound”.
 
-Find your Arduino Leonardo in "“Devices and Printers” list.
+2. Find your Arduino Leonardo in "“Devices and Printers” list.
 
-Right click and select “Game controller settings” to get to the “Game Controllers” dialog. Select Arduino Leonardo and click "Properties".
+3. Right click and select “Game controller settings” to get to the “Game Controllers” dialog. Select Arduino Leonardo and click "Properties".
 
-You can now test your game controller functionality and modify it by adapting your code.
+4. You can now test your game controller functionality and modify it by adapting your code.
