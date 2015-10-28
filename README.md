@@ -11,7 +11,7 @@ Replace them with the ones above to add a generic Game Controller to the Arduino
 Connections as follows:
 
 Arduino Pin			Function
------------			---------------------
+
 4								Button 1
 7								Button 2
 8								Button 3
