@@ -23,4 +23,3 @@ A1					 |	Joystick Horizontal
 10					 |	Joystick Button
 GND					 |	Joystick GND
 
-Made by Jérôme Bailet
