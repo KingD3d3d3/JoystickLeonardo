@@ -11,16 +11,16 @@ Replace them with the ones above to add a generic Game Controller to the Arduino
 
 Connections as follows:
 
-Arduino Pin			Function
-
-* 4								Button 1
-* 7								Button 2
-* 8								Button 3
-* 9								Button 4
-* 11							Button 6
-* A0							Joystick Vertical
-* A1							Joystick Horizontal
-* 10							Joystick Button
-* GND							Joystick GND
+Arduino Pin	 |	Function
+------------ |  ---------
+4						 |	Button 1
+7						 |	Button 2
+8						 |	Button 3
+9						 |	Button 4
+11					 |	Button 6
+A0					 |	Joystick Vertical
+A1					 |	Joystick Horizontal
+10					 |	Joystick Button
+GND					 |	Joystick GND
 
 Made by Jérôme Bailet
