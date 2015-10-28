@@ -3,7 +3,7 @@
 This code runs on an Arduino Leonardo allowing it to act as a USB Game Controller (also works with Arduino Micro).
 
 First make a backup copy of the following two files located in the 
-“%PROGRAMFILES%\Arduino\hardware\arduino\avr\cores\arduino” folder.
+“%PROGRAMFILES%\Arduino\hardware\arduino\cores\arduino” folder.
 * HID.cpp
 * USBAPI.h
 
