@@ -22,4 +22,4 @@ A0					 |	Joystick Vertical
 A1					 |	Joystick Horizontal
 10					 |	Joystick Button
 GND					 |	Joystick GND
-
+5V					 |	Joystick VCC
