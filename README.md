@@ -34,4 +34,6 @@ The following steps are for Windows. If you have a different operating system, t
 
 3. Right click and select “Game controller settings” to get to the “Game Controllers” dialog. Select Arduino Leonardo and click "Properties".
 
-4. You can now test your game controller functionality and modify it by adapting your code.
+4. You can now test your game controller functionality and modify it by adapting your code and Arduino configuration.
+
+More information here : http://www.instructables.com/id/Add-USB-Game-Controller-to-Arduino-LeonardoMicro/?ALLSTEPS
