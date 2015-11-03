@@ -3,7 +3,7 @@
 This code runs on an Arduino Leonardo allowing it to act as a USB Game Controller (also works with Arduino Micro).
 
 First make a backup copy of the following two files located in the 
-“%PROGRAMFILES%\Arduino\hardware\arduino\cores\arduino” folder.
+“%PROGRAMFILES%\Arduino\hardware\arduino\avr\cores\arduino” folder.
 * HID.cpp
 * USBAPI.h
 
@@ -19,12 +19,12 @@ Arduino Pin	 |	Function
 7						 |	Button 2
 8						 |	Button 3
 9						 |	Button 4
-11					 |	Button 6
+12					 |	Button 6
 A0					 |	Joystick Vertical
 A1					 |	Joystick Horizontal
 10					 |	Joystick Button
 
-Compile and upload the JoystickLeonardo.ino file onto the Arduino Leonardo using the Arduino Software (IDE). Tested with version 1.0.6 of the software.
+Compile and upload the JoystickLeonardo.ino file onto the Arduino Leonardo using the Arduino Software (IDE). Tested with version 1.5.6 of the software.
 
 The following steps are for Windows. If you have a different operating system, these steps may differ.
 
