@@ -28,6 +28,9 @@ long lastDebounces[buttonsCount] = {0};
 // Number of autofire to handle
 const int buttonsCountAuto = 2;
 
+// Simulate press delay
+const long pressDelay = 100;
+
 // Autofire buttons
 const int autoButtons[buttonsCountAuto] = {
     2,
@@ -58,30 +61,38 @@ void setup() {
       for (int i = 0; i < buttonsCount; ++i) {
          pinMode(pins[i], INPUT_PULLUP);
       }
-      
+
+      pinMode(A4, INPUT_PULLUP); // for Joystick-pad Y Axis
+      pinMode(A5, INPUT_PULLUP); // for Joystick-pad X Axis
 }
 
 
 void loop() {
-  
+
+     // Analog Joystick
      // Arranging analog joystick raw values from [0;1023] to [-127;127]
      int x = map(analogRead(HORIZ), 0, 1023, -127, 127);
      int y = map(analogRead(VERT), 0, 1023, -127, 127);
-     Joystick.setXAxis(x); 
-     Joystick.setYAxis(y);
+
+     // Joystick-pad
+     int x2 = handleJoystickButton(analogRead(A5));
+     int y2 = handleJoystickButton(analogRead(A4));
      
+     if((x2 != 0) || (y2 != 0)){ //if joystick-pad is used we disable analog joystick
+          Joystick.setXAxis(x2);
+          Joystick.setYAxis(y2);
+     } else {
+          Joystick.setXAxis(x);
+          Joystick.setYAxis(y);
+     }
+
+     //Buttons loop
      for (int i = 0; i < buttonsCount; ++i) { //i set button number
 	       handleButton(i, digitalRead(pins[i]), millis());
      }
 
+    // Autofire buttons loop
      for (int i = 0; i < buttonsCountAuto; ++i) {
-        /*
-        potarValue[i] = analogRead(potarPins[i]);
-        Serial.print("potarValue : ");
-        Serial.print(i);
-        Serial.print(" = ");
-        Serial.println(potarValue[i]);
-        */
         potarValue[i] = analogRead(potarPins[i]);
         if(potarValue[i] <= 1000){
           unsigned long period = definePeriod(potarValue[i]);
@@ -95,7 +106,7 @@ void loop() {
      Serial.print("potarValue : ");
      Serial.println(potarValue);
      */
-     
+  
      if (!testAutoSendMode)
      {
       Joystick.sendState();
@@ -151,4 +162,19 @@ void handleAutoButton(const int buttonNumber, const int previous, const long now
  */ 
 unsigned long definePeriod(int val){
   return 2 * val;
+}
+
+/**
+ * \brief Return Joystick axis value (-127,0,127) for the Joystick-pad
+ *
+ * \param val Analog value to convert
+ */ 
+int handleJoystickButton(int val){
+  if(val >= 1020){
+    return 0;
+  } else if(val <= 20){
+    return 127;
+  } else{
+    return -127;
+  }
 }
