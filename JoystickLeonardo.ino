@@ -7,17 +7,13 @@ const int buttonsCount = 6;
 
 // Arduino PINs to use
 const int pins[buttonsCount] = {
-    4, // L
-    7, // R
+    7, 
     8,
     9,
-    10, //joystick button : SEL 
-    12, // Start
+    10,
+    11,
+    12,
 };
-
-// Connections to joystick (analog) :
-const int VERT = A0;
-const int HORIZ = A1;
 
 // Debounce delay
 const long debounceDelay = 50;
@@ -33,19 +29,25 @@ const long pressDelay = 100;
 
 // Autofire buttons
 const int autoButtons[buttonsCountAuto] = {
-    2,
-    3,
+    4,
+    5,
 };
 
 //Potentiometers
 const int potarPins[buttonsCountAuto]{
-  A2,
-  A3,
+  A0,
+  A1,
 };
 int potarValue[buttonsCountAuto] = {}; //store the value coming from the potentiometer
 
 // Store last time
 unsigned long previousMillis[buttonsCountAuto] = {0};
+
+// Number of buttons to handle
+const int joyCount = 4;
+// Debounce delay Joystick
+const long debounceDelayJoy = 125;
+long lastDebouncesJoy[joyCount] = {0};
 
 void setup() {
       Serial.begin(9600);
@@ -62,29 +64,19 @@ void setup() {
          pinMode(pins[i], INPUT_PULLUP);
       }
 
-      pinMode(A4, INPUT_PULLUP); // for Joystick-pad Y Axis
-      pinMode(A5, INPUT_PULLUP); // for Joystick-pad X Axis
+      // set up arcade joystick
+      for (int j = 2; j < 6; ++j) {
+         pinMode(j, INPUT_PULLUP);
+      }
 }
 
 
 void loop() {
-
-     // Analog Joystick
-     // Arranging analog joystick raw values from [0;1023] to [-127;127]
-     int x = map(analogRead(HORIZ), 0, 1023, -127, 127);
-     int y = map(analogRead(VERT), 0, 1023, -127, 127);
-
-     // Joystick-pad
-     int x2 = handleJoystickButton(analogRead(A5));
-     int y2 = handleJoystickButton(analogRead(A4));
      
-     if((x2 != 0) || (y2 != 0)){ //if joystick-pad is used we disable analog joystick
-          Joystick.setXAxis(x2);
-          Joystick.setYAxis(y2);
-     } else {
-          Joystick.setXAxis(x);
-          Joystick.setYAxis(y);
-     }
+     int x = defineJoystickX(4,5);
+     int y = defineJoystickY(2,3);
+     Joystick.setXAxis(x);
+     Joystick.setYAxis(y);
 
      //Buttons loop
      for (int i = 0; i < buttonsCount; ++i) { //i set button number
@@ -101,7 +93,7 @@ void loop() {
      }
      
      /* Check function 
-     potarValue = analogRead(potarPin);
+     int potarValue = analogRead(A2);
      //unsigned long period = definePeriod(potarValue);
      Serial.print("potarValue : ");
      Serial.println(potarValue);
@@ -165,16 +157,30 @@ unsigned long definePeriod(int val){
 }
 
 /**
- * \brief Return Joystick axis value (-127,0,127) for the Joystick-pad
- *
- * \param val Analog value to convert
+ * \brief Return Joystick X axis value (-127,0,127)
  */ 
-int handleJoystickButton(int val){
-  if(val >= 1020){
-    return 0;
-  } else if(val <= 20){
-    return 127;
-  } else{
+int defineJoystickX(int pinRight, int pinLeft){
+      if(!digitalRead(pinRight)){ // Right pin 4
+        //Serial.println("right x = 127");
+        return 127;
+      }
+      else if (!digitalRead(pinLeft)){ // Left pin 5
+        //Serial.println("left x = -127");
+        return -127;
+      } else return 0;
+}
+  
+/**
+ * \brief Return Joystick Y axis value (-127,0,127)
+ */ 
+int defineJoystickY(int pinUp, int pinDown){
+  if(!digitalRead(pinUp)){ // Up pin 2
+    //Serial.println("up y = -127");
     return -127;
   }
+  else if (!digitalRead(pinDown)){ // Down pin 3
+    //Serial.println("down y= 127");
+    return 127;
+  } else return 0;
 }
+
